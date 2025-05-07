@@ -10,6 +10,7 @@ import {
     DialogTitle,
     DialogDescription
 } from "@/components/ui/dialog"
+import "../land.css";
 
 const LandingPage = () => {
     return (
@@ -333,6 +334,27 @@ const interviewTypes = [
         isTechnical: false,
         focus: "initial assessment of your background, expectations, and cultural fit.",
     },
+    {
+        title: "Behavioral Interview",
+        icon: Users,
+        bgColor: "bg-blue-600",
+        isTechnical: false,
+        focus: "evaluating your soft skills, communication, and past experiences.",
+    },
+    {
+        title: "Backend Dev Interview",
+        icon: Laptop,
+        bgColor: "bg-red-600",
+        isTechnical: true,
+        focus: "testing your backend development knowledge, including APIs, databases, and server architecture.",
+    },
+    {
+        title: "Full-Stack Dev Interview",
+        icon: Laptop,
+        bgColor: "bg-yellow-600",
+        isTechnical: true,
+        focus: "assessing both frontend and backend skills, system design, and full application development.",
+    }
 ]
 
 const testimonials = [
@@ -354,6 +376,24 @@ const testimonials = [
         quote:
             "The variety of technical questions and detailed feedback helped me understand exactly what I needed to improve. Highly recommended!",
     },
+    {
+        name: "John Doe",
+        position: "Software Engineer at Tcs",
+        quote:
+            "IntervuAI helped me prepare for my technical interviews with real-world questions. The AI feedback was incredibly helpful in improving my responses.",
+    },
+    {
+        name: "Ben Cutting",
+        position: "Product Manager at Infosys",
+        quote:
+            "After practicing with IntervuAI for two weeks, I felt so much more confident in my interviews. I received offers from 3 companies!",
+    },
+    {
+        name: "Don Bradman",
+        position: "Data Scientist at Cognizant",
+        quote:
+            "The variety of technical questions and detailed feedback helped me understand exactly what I needed to improve. Highly recommended!",
+    }
 ]
 
 export default LandingPage;
