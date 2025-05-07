@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Laptop, Star, ArrowRight, CheckCircle, Users, Clock, MessageSquare } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useState } from "react"
 import {
     Dialog,
     DialogTrigger,
@@ -13,13 +12,6 @@ import {
 } from "@/components/ui/dialog"
 
 const LandingPage = () => {
-
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => {
-        setOpen(true);
-    }
-
     return (
         <div className="min-h-screen bg-black text-white cursor-pointer">
             {/* Navigation */}
@@ -31,10 +23,16 @@ const LandingPage = () => {
                     <span className="font-bold text-xl">IntervuAI</span>
                 </div>
                 <div className="hidden md:flex items-center gap-4">
-                    <Button variant="outline" className="text-white border-gray-700 bg-gray-800">
-                        Log in
-                    </Button>
-                    <Button className="bg-purple-600 hover:bg-purple-700">Sign up</Button>
+                    <Link to={"/login"}>
+                        <Button variant="outline" className="text-white border-gray-700 bg-gray-800">
+                            Login
+                        </Button>
+                    </Link>
+                    <Link to={"/register"}>
+                        <Button className="bg-purple-600 hover:bg-purple-700">
+                            Sign Up
+                        </Button>
+                    </Link>
                 </div>
                 <Button variant="ghost" size="icon" className="md:hidden">
                     <svg
@@ -79,7 +77,6 @@ const LandingPage = () => {
                                     size="lg"
                                     variant="outline"
                                     className="border-gray-700 bg-gray-800 text-white w-full sm:w-auto"
-                                    onClick={handleOpen}
                                 >
                                     Watch Demo
                                 </Button>
