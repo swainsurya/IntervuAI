@@ -5,17 +5,24 @@ import ProtectedRoutes from './components/mycomponents/ProtectedRoutes'
 import Dashboard from './pages/Dashboard'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import ProtectLanding from './components/mycomponents/ProtectLanding'
+import AboutPage from './pages/AboutPage'
+import ProfilePage from './pages/ProfilePage'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/landing' element={<LandingPage />} />
-        <Route element={<ProtectedRoutes/>}>
-          <Route path='/' element={<Dashboard/>} />
+        <Route element={<ProtectLanding/>}>
+          <Route path='/landing' element={<LandingPage />} />
+        </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/' element={<Dashboard />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/about' element={<AboutPage/>} />
+        <Route path='/profile' element={<ProfilePage/>} />
       </Routes>
     </BrowserRouter>
   )

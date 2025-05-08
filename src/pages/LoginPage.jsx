@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex flex-col">
+    <div className="min-h-screen bg-[#121212] text-white flex flex-col cursor-pointer">
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12">
         <div className="w-full max-w-md space-y-6 md:space-y-8">
           <div className="text-center">
@@ -41,7 +41,7 @@ export default function LoginPage() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Checkbox id="remember" className="bg-purple-900" />
+                <Checkbox id="remember" className="border-[1px] border-purple-700" />
                 <Label htmlFor="remember" className="text-sm text-gray-300">
                   Remember me
                 </Label>
