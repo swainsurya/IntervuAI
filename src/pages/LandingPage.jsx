@@ -69,9 +69,11 @@ const LandingPage = () => {
                         Practice real interview questions & get instant feedback. Boost your confidence and land your dream job.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                        <Button size="lg" className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto">
-                            Start Practicing Free
-                        </Button>
+                        <Link to={"/login"}>
+                            <Button size="lg" className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto">
+                                Start Practicing Free
+                            </Button>
+                        </Link>
                         <Dialog>
                             <DialogTrigger>
                                 <Button
@@ -170,9 +172,10 @@ const LandingPage = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {interviewTypes.map((interview, index) => (
-                        <div
+                        <Link
                             key={index}
-                            className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-purple-600 transition group"
+                            className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-purple-600 transition group cursor-pointer"
+                            to={"/login"}
                         >
                             <div className="p-6">
                                 <div className="flex items-center gap-4 mb-4">
@@ -193,14 +196,16 @@ const LandingPage = () => {
                                     Start Interview <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
                 <div className="text-center mt-12">
-                    <Button variant="outline" className="border-gray-700 bg-gray-800 text-white">
-                        View All Interview Types <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    <Link to={"/login"}>
+                        <Button variant="outline" className="border-gray-700 bg-gray-800 text-white">
+                            View All Interview Types <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    </Link>
                 </div>
             </section>
 
@@ -247,9 +252,11 @@ const LandingPage = () => {
                             Start practicing with our AI-powered platform today and get the job you deserve
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button size="lg" className="bg-white text-purple-900 hover:bg-gray-100 w-full sm:w-auto">
-                                Get Started Free
-                            </Button>
+                            <Link to={"/login"}>
+                                <Button size="lg" className="bg-white text-purple-900 hover:bg-gray-100 w-full sm:w-auto">
+                                    Get Started Free
+                                </Button>
+                            </Link>
                             <Button
                                 size="lg"
                                 variant="outline"
