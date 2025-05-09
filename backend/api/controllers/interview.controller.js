@@ -1,0 +1,50 @@
+import { interviewModel } from "../models/interviewModel.js";
+import { GoogleGenAI } from "@google/genai";
+import "dotenv/config";
+
+const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEMINI_API_KEY });
+
+export const generateInterview = async (req, res) => {
+    const { userid, type, role, level, techstacks, amount } = req.body;
+    try {
+        const qus = await ai.models.generateContent({
+            model: "gemini-2.0-flash",
+            contents: `Prepare questions for a job interview.
+            The job role is ${role}.
+            The job experience level is ${level}.
+            The tech stack used in the job is: ${techstacks+" "}.
+            The focus between behavioural and technical questions should lean towards: ${type}.
+            The amount of questions required is: ${amount}.
+            Please return only the questions, without any additional text.
+            The questions are going to be read by a voice assistant so do not use "/" or "*" or any     other special characters which might break the voice assistant.
+            Return the questions formatted like this:
+            ["Question 1", "Question 2", "Question 3"]
+        
+            Thank you! < 3`
+        })
+
+        const interview = new interviewModel({
+            role, type, level,
+            techstacks: `${techstacks} `,
+            userid,
+            finalized: true,
+            questions: JSON.parse(qus.text),
+            amount
+        })
+
+
+        await interview.save();
+        return res.status(200).json({
+            message: "Interview created successfully",
+            success: true,
+            interview
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            message: "Internal server error",
+            success: false,
+            error
+        })
+    }
+}

@@ -2,6 +2,7 @@ import express from "express";
 import "dotenv/config";
 import { DBConnection } from "./api/lib/connectDatabase.js";
 import authRouter from "./api/routes/auth.routes.js";
+import interviewRouter from "./api/routes/interview.routes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -11,7 +12,8 @@ DBConnection();
 app.use(express.json());
 
 // routing in server 
-app.use("/auth", authRouter)
+app.use("/auth", authRouter);
+app.use("/ai",interviewRouter);
 
 app.get("/",(req, res) => {
     res.json({
