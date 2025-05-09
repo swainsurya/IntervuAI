@@ -8,7 +8,7 @@ import cors from "cors";
 const app = express();
 const port = process.env.PORT || 4000;
 
-// db connection
+// db connection 
 DBConnection();
 const corsOptions = {
     origin: '*', // Allow all origins
