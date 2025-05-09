@@ -10,13 +10,14 @@ import {
     DialogTitle,
     DialogDescription
 } from "@/components/ui/dialog"
-import "../land.css";
+import Footer from "@/components/mycomponents/Footer"
 
 const LandingPage = () => {
+
     return (
-        <div className="min-h-screen bg-black text-white cursor-pointer">
+        <div className="min-h-screen bg-black text-white">
             {/* Navigation */}
-            <header className="container mx-auto py-6 px-4 flex justify-between items-center">
+            <header  className="cursor-pointer container mx-auto py-6 px-4 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                     <div className="bg-purple-600 rounded-full p-1.5">
                         <Laptop className="h-5 w-5" />
@@ -56,7 +57,7 @@ const LandingPage = () => {
             </header>
 
             {/* Hero Section */}
-            <section className="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-8">
+            <section className="cursor-pointer container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-1 space-y-6">
                     <div className="flex gap-2">
                         <Badge className="bg-purple-600 text-white px-3 py-1">New</Badge>
@@ -120,7 +121,7 @@ const LandingPage = () => {
             </section>
 
             {/* Features Section */}
-            <section className="bg-gray-900 py-16 md:py-24">
+            <section className="bg-gray-900 py-16 md:py-24 cursor-pointer">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose IntervuAI?</h2>
@@ -162,7 +163,7 @@ const LandingPage = () => {
             </section>
 
             {/* Interview Types Section */}
-            <section id="interview_type" className="container mx-auto px-4 py-16 md:py-24">
+            <section id="interview_type" className="container mx-auto px-4 py-16 md:py-24 cursor-pointer">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Prepare for Any Interview</h2>
                     <p className="text-gray-400 max-w-2xl mx-auto">
@@ -210,7 +211,7 @@ const LandingPage = () => {
             </section>
 
             {/* Testimonials */}
-            <section className="bg-gray-900 py-16 md:py-24">
+            <section className="bg-gray-900 py-16 md:py-24 cursor-pointer">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
@@ -244,7 +245,7 @@ const LandingPage = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="container mx-auto px-4 py-16 md:py-24">
+            <section className="container mx-auto px-4 py-16 md:py-24 cursor-pointer">
                 <div className="bg-gradient-to-r from-purple-900 to-blue-900 rounded-2xl p-8 md:p-12">
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Ace Your Next Interview?</h2>
@@ -268,31 +269,8 @@ const LandingPage = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Footer */}
-            <footer className="bg-gray-900 py-12">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-                        <div className="flex items-center gap-2 mb-4 md:mb-0">
-                            <div className="bg-purple-600 rounded-full p-1.5">
-                                <Laptop className="h-5 w-5" />
-                            </div>
-                            <span className="font-bold text-xl">IntervuAI</span>
-                        </div>
-                        <div className="flex gap-6">
-                            <Link href="#" className="text-gray-400 hover:text-white transition font-bold">
-                                Terms
-                            </Link>
-                            <Link to="/about" className="text-gray-400 hover:text-white transition font-bold">
-                                About
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="border-t border-gray-800 pt-8 text-center text-gray-500">
-                        <p>© {new Date().getFullYear()} IntervuAI. All rights reserved.</p>
-                    </div>
-                </div>
-            </footer>
+            {/* footer */}
+            <Footer/>
         </div>
     )
 }

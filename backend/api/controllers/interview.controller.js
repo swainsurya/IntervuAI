@@ -48,3 +48,15 @@ export const generateInterview = async (req, res) => {
         })
     }
 }
+
+export const othersInterview = async(req,res) => {
+    const {userid} = req.body;
+    try {
+        const interviews = await interviewModel.find().sort({createdAt: -1})
+        return res.status(200).json({
+            interviews
+        })
+    } catch (error) {
+        
+    }
+}

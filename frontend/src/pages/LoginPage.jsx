@@ -2,9 +2,46 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useUser } from "@/store/UserStore"
+import toast from "react-hot-toast"
+import { BeatLoader } from "react-spinners"
 
-export default function LoginPage() {
+const LoginPage = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { loginFunc, loading } = useUser();
+  const navigate = useNavigate();
+
+  const handleLogin = async(e) => {
+    e.preventDefault();
+    if(!email || !password) {
+      toast.error("All fields are required")
+      return;
+    }
+    if(password.length < 7) {
+      toast.error("Password length must be more than 7");
+      return;
+    }
+    try {
+      const result = await loginFunc(email, password)
+      if(result.success) {
+        localStorage.setItem("userid", result?.userid);
+        localStorage.setItem("username", result?.username);
+        toast.success(result?.message);
+        navigate("/")
+      }
+      else {
+        toast.error(result?.message);
+      }
+    } catch (error) {
+      toast.error("Internal server issue");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#121212] text-white flex flex-col cursor-pointer">
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12">
@@ -15,7 +52,9 @@ export default function LoginPage() {
           </div>
 
           <div className="bg-[#1E1E1E] p-8 rounded-xl border border-gray-800 shadow-lg">
-            <form className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
+
+              {/* Email field */}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-gray-300">
                   Email
@@ -25,9 +64,12 @@ export default function LoginPage() {
                   type="email"
                   placeholder="name@example.com"
                   className="bg-[#2A2A2A] border-gray-700 text-white placeholder:text-gray-500"
+                  value={email}
+                  onChange={e=>setEmail(e.target.value)}
                 />
               </div>
 
+              {/* Password field */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password" className="text-gray-300">
@@ -37,7 +79,14 @@ export default function LoginPage() {
                     Forgot password?
                   </Link>
                 </div>
-                <Input id="password" type="password" className="bg-[#2A2A2A] border-gray-700 text-white" placeholder="..........." />
+                <Input 
+                  id="password" 
+                  type="password" 
+                  className="bg-[#2A2A2A] border-gray-700 text-white" 
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={e=>setPassword(e.target.value)}
+                />
               </div>
 
               <div className="flex items-center gap-2">
@@ -47,7 +96,9 @@ export default function LoginPage() {
                 </Label>
               </div>
 
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Sign in</Button>
+              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                {loading? <BeatLoader color="#fff" size={10}/> : "Login"}
+              </Button>
             </form>
           </div>
 
@@ -62,3 +113,5 @@ export default function LoginPage() {
     </div>
   )
 }
+
+export default LoginPage;

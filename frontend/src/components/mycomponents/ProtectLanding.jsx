@@ -1,10 +1,11 @@
+import { useUser } from '@/store/UserStore';
 import React, { useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectLanding = () => {
-    const [auth, setAuth] = useState(false);
+    const { checkAuth } = useUser();
   return (
-    !auth?<Outlet/>:<Navigate to={"/"} />
+    !checkAuth()?<Outlet/>:<Navigate to={"/"} />
   )
 }
 

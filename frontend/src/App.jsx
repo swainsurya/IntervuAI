@@ -9,6 +9,7 @@ import ProtectLanding from './components/mycomponents/ProtectLanding'
 import AboutPage from './pages/AboutPage'
 import ProfilePage from './pages/ProfilePage'
 import { Toaster } from 'react-hot-toast'
+import GenerateInterviewPage from './pages/GenerateInterviewPage'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         </Route>
         <Route element={<ProtectedRoutes />}>
           <Route path='/' element={<Dashboard />} />
+          <Route path='/generate-interview' element={<GenerateInterviewPage/>} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />

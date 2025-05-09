@@ -5,29 +5,8 @@ import { Link } from "react-router-dom"
 import {  Laptop } from "lucide-react"
 
 export default function DashboardPage() {
-  const [user] = useState({
-    name: "John Doe",
-    avatar: "/placeholder.svg?height=40&width=40",
-    initials: "JD",
-  })
-
   return (
-    <div className="min-h-screen bg-[#121212] text-white cursor-pointer">
-      {/* Header */}
-      <header className="border-b border-gray-800 px-4 py-3 flex justify-between items-center m-auto sticky top-0 bg-[#121212]">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="bg-purple-600 rounded-full p-1.5">
-            <Laptop className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-semibold">IntervuAI</span>
-        </Link>
-        <div className="w-10 h-10 bg-gray-800 flex items-center justify-center rounded-full p-2">
-          <h2 className="text-xl font-bold">S</h2>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 max-w-7xl">
+    <main className="container mx-auto px-4 py-6 max-w-7xl">
         {/* Hero Section */}
         <section className="mb-10">
           <div className="bg-[#1E1E2D] rounded-xl overflow-hidden">
@@ -37,7 +16,9 @@ export default function DashboardPage() {
                   Get Interview-Ready with AI-Powered Practice & Feedback
                 </h1>
                 <p className="text-gray-400 mb-4">Practice real interview questions & get instant feedback</p>
-                <Button className="bg-purple-600 hover:bg-purple-700">Create an Interview</Button>
+                <Link to={"/generate-interview"}>
+                  <Button className="bg-purple-600 hover:bg-purple-700">Create an Interview</Button>
+                </Link>
               </div>
               <div className="md:w-1/3 flex justify-center">
                 <img
@@ -71,8 +52,7 @@ export default function DashboardPage() {
             ))}
           </div>
         </section>
-      </main>
-    </div>
+    </main>
   )
 }
 

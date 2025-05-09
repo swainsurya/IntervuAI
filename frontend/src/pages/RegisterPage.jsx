@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import toast from "react-hot-toast"
 import { useUser } from "@/store/UserStore"
+import { BeatLoader } from "react-spinners"
 
 const RegisterPage = () => {
 
@@ -14,7 +15,9 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { registerFunc } = useUser();
+  const navigate = useNavigate();
+
+  const { registerFunc, loading } = useUser();
 
   const handleRegister = async(e) => {
     e.preventDefault();
@@ -32,9 +35,16 @@ const RegisterPage = () => {
     }
     // Register right here
     try {
-      await registerFunc(fullname,email,password);
+      const result = await registerFunc(fullname,email,password);
+      if(!result.success) {
+        toast.error(result.message);
+      }
+      else{
+        toast.success(result.message);
+        navigate("/login");
+      }
     } catch (error) {
-      
+      toast.error("Internal Server Issue");
     }
   }
 
@@ -89,7 +99,7 @@ const RegisterPage = () => {
                   id="password" 
                   type="password" 
                   className="bg-[#2A2A2A] border-gray-700 text-white" 
-                  placeholder="********"
+                  placeholder="••••••••"
                   value={password}
                   onChange={e=>setPassword(e.target.value)}
                   />
@@ -104,7 +114,7 @@ const RegisterPage = () => {
                   id="confirmPassword" 
                   type="password" 
                   className="bg-[#2A2A2A] border-gray-700 text-white" 
-                  placeholder="********"
+                  placeholder="••••••••"
                   value={confirmPassword}
                   onChange={e=>setConfirmPassword(e.target.value)}
                 />
@@ -124,7 +134,9 @@ const RegisterPage = () => {
                 </Label>
               </div>
 
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Create account</Button>
+              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                {loading? <BeatLoader color="#fff" size={10}/> : "Create Account"}
+              </Button>
             </form>
           </div>
 
