@@ -8,7 +8,7 @@ const interviewSchema = new mongoose.Schema({
     finalized: { type: Boolean, default: false },
     coverImage: { type: String},
     amount: { type:Number, default: 2 },
-    techstacks: { type: String, required: true , default:"Frontend"},
+    techstacks: { type: String,  default:"Frontend"},
     questions:[]
 },{
     timestamps: true
