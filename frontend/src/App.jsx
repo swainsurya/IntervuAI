@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage'
 import ProtectLanding from './components/mycomponents/ProtectLanding'
 import AboutPage from './pages/AboutPage'
 import ProfilePage from './pages/ProfilePage'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/about' element={<AboutPage/>} />
         <Route path='/profile' element={<ProfilePage/>} />
       </Routes>
+      <Toaster toastOptions={{position:"top-center"}}/>
     </BrowserRouter>
   )
 }

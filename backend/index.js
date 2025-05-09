@@ -10,17 +10,24 @@ const port = process.env.PORT || 4000;
 
 // db connection
 DBConnection();
-app.use(cors());
+const corsOptions = {
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow all common HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow common headers
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // routing in server 
 app.use("/auth", authRouter);
-app.use("/ai",interviewRouter);
+app.use("/ai", interviewRouter);
 
-app.get("/",(req, res) => {
+app.get("/", (req, res) => {
     res.json({
         success: true,
         message: "Server is running fine"
     })
 })
-app.listen(port,() => console.log("Server is live at ",port))
+app.listen(port, () => console.log("Server is live at ", port))
