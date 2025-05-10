@@ -3,8 +3,9 @@ import "@/index.css"
 import { vapi } from '@/lib/vapi.sdk'
 import { useNavigate } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
+import { interviewer } from '@/constants'
 
-const AgentComponent = ({ username, userid, type }) => {
+const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
 
     const listStatus = {
         INACTIVE: "INACTIVE",
@@ -57,28 +58,61 @@ const AgentComponent = ({ username, userid, type }) => {
     }, [])
 
     useEffect(() => {
-        if(CallStatus == listStatus.FINISHED) navigate("/");
-    },[messages, CallStatus, type, userid])
+        if (CallStatus == listStatus.FINISHED) {
+            if (type == "generate") {
+                navigate("/");
+            }
+            else {
+                handleGenerateFeedback(messages)
+            }
+        }
+    }, [messages, CallStatus, type, userid])
 
-    const handleCall = async() => {
+    const handleCall = async () => {
         setCallStatus(listStatus.CONNECTING);
 
-        const res = await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9",{
-            variableValues:{
-                username: username,
-                userid: userid
+        if (type == "generate") {
+            const res = await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9", {
+                variableValues: {
+                    username: username,
+                    userid: userid
+                }
+            })
+        }
+        else {
+            let formattedQuestions = '';
+            if(questions) {
+                formattedQuestions = questions.map((question) => `-${question}`).join('\n')
             }
-        })
-        console.log(res.workflow)
+
+            await vapi.start(interviewer,{
+                variableValues: {
+                    questions: formattedQuestions
+                }
+            })
+        }
     }
 
-    const handleDisconnectCall = async() => {
+    const handleDisconnectCall = async () => {
         setCallStatus(listStatus.FINISHED);
         vapi.stop();
     }
 
-    const lastMessage = messages[messages.length -1]?.content;
-    const isCallStatusInactiveORFinished = CallStatus == listStatus.INACTIVE || CallStatus == listStatus.FINISHED ;
+    const handleGenerateFeedback = async (messages) => {
+        console.log("Generate feedback here.");
+        const { success, id } = { success: true, id: "feedback-id" }
+
+        if (success && id) {
+            navigate(`/interview/feedback/${interviewId}`)
+        }
+        else {
+            console.log("Error saving feedback");
+            navigate("/");
+        }
+    }
+
+    const lastMessage = messages[messages.length - 1]?.content;
+    const isCallStatusInactiveORFinished = CallStatus == listStatus.INACTIVE || CallStatus == listStatus.FINISHED;
 
     return (
         <>
@@ -117,7 +151,7 @@ const AgentComponent = ({ username, userid, type }) => {
                 {CallStatus !== 'ACTIVE' ? (
                     <button className='relative btn-call mt-8' onClick={handleCall}>
                         <span>
-                            { isCallStatusInactiveORFinished?'Call' : <BeatLoader color="#fff" size={7}/> }
+                            {isCallStatusInactiveORFinished ? 'Call' : <BeatLoader color="#fff" size={7} />}
                         </span>
                     </button>
                 ) : (

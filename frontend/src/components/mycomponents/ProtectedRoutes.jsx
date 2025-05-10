@@ -14,7 +14,6 @@ const ProtectedRoutes = () => {
       <div className="min-h-screen bg-[#121212] text-white cursor-pointer">
         <HeaderDashboard/>
         <Outlet/>
-        <Footer/>
       </div>
     ) : <Navigate to={"/landing"} />
   )
