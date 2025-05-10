@@ -29,7 +29,7 @@ export const generateInterview = async (req, res) => {
             userid,
             finalized: true,
             questions: JSON.parse(qus.text),
-            amount
+            amount: parseInt(amount)
         })
 
 
