@@ -50,7 +50,6 @@ export const generateInterview = async (req, res) => {
 }
 
 export const othersInterview = async(req,res) => {
-    const {userid} = req.body;
     try {
         const interviews = await interviewModel.find().sort({createdAt: -1})
         return res.status(200).json({
@@ -58,5 +57,22 @@ export const othersInterview = async(req,res) => {
         })
     } catch (error) {
         
+    }
+}
+
+export const myInterviews = async(req, res) => {
+    const {userid} = req.body;
+    try {
+        const interviews = await interviewModel.find({userid});
+        return res.status(200).json({
+            message: "These are user's created interviews",
+            success: true,
+            interviews
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "Internal server error",
+            success: false
+        })
     }
 }

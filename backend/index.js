@@ -4,9 +4,13 @@ import { DBConnection } from "./api/lib/connectDatabase.js";
 import authRouter from "./api/routes/auth.routes.js";
 import interviewRouter from "./api/routes/interview.routes.js";
 import cors from "cors";
+import job from "./api/lib/cron.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+// cron job
+job.start();
 
 // db connection 
 DBConnection();
@@ -15,9 +19,7 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow all common HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow common headers
 };
-
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 // routing in server 

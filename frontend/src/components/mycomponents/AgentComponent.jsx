@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "@/index.css"
 import { vapi } from '@/lib/vapi.sdk'
 import { useNavigate } from 'react-router-dom'
+import { BeatLoader } from 'react-spinners'
 
 const AgentComponent = ({ username, userid, type }) => {
 
@@ -62,12 +63,13 @@ const AgentComponent = ({ username, userid, type }) => {
     const handleCall = async() => {
         setCallStatus(listStatus.CONNECTING);
 
-        await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9",{
+        const res = await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9",{
             variableValues:{
-                username,
-                userid
+                username: username,
+                userid: userid
             }
         })
+        console.log(res.workflow)
     }
 
     const handleDisconnectCall = async() => {
@@ -115,7 +117,7 @@ const AgentComponent = ({ username, userid, type }) => {
                 {CallStatus !== 'ACTIVE' ? (
                     <button className='relative btn-call mt-8' onClick={handleCall}>
                         <span>
-                            { isCallStatusInactiveORFinished?'Call' : ". . . ." }
+                            { isCallStatusInactiveORFinished?'Call' : <BeatLoader color="#fff" size={7}/> }
                         </span>
                     </button>
                 ) : (
