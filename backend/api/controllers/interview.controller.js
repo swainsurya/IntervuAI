@@ -76,3 +76,19 @@ export const myInterviews = async(req, res) => {
         })
     }
 }
+
+export const getInterviewByid = async(req, res) => {
+    const {id} = req.params ;
+    try {
+        const interview = await interviewModel.findById(id);
+        return res.json({
+            success: true,
+            interview
+        })
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: "Internal Server Error"
+        })
+    }
+}

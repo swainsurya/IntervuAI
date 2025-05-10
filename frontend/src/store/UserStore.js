@@ -4,11 +4,11 @@ import { create } from "zustand";
 export const useUser = create((set) => ({
     isLoggedIn: false,
     loading: false,
-    registerFunc: async(fullname, email, password) => {
+    registerFunc: async (fullname, email, password) => {
         set({ loading: true });
         try {
-            const response = await axios.post(`https://intervuai-3id4.onrender.com/auth/register`,{fullname,email,password});
-            if(response.data?.success) {
+            const response = await axios.post(`https://intervuai-3id4.onrender.com/auth/register`, { fullname, email, password });
+            if (response.data?.success) {
                 return {
                     success: true,
                     message: "Registration Success"
@@ -20,16 +20,16 @@ export const useUser = create((set) => ({
                 message: error.response.data.message
             }
         }
-        finally{
+        finally {
             set({ loading: false })
         }
     },
-    loginFunc: async(email, password) => {
+    loginFunc: async (email, password) => {
         set({ loading: true })
         try {
             const response = await axios.post(`https://intervuai-3id4.onrender.com/auth/login`,
-                {email, password});
-            if(response.data?.success) {
+                { email, password });
+            if (response.data?.success) {
                 return {
                     success: true,
                     message: response.data?.message,
@@ -44,12 +44,12 @@ export const useUser = create((set) => ({
             }
         }
         finally {
-            set({loading: false})
+            set({ loading: false })
         }
     },
     checkAuth: () => {
         const userid = localStorage.getItem("userid");
-        if(!userid) return false;
+        if (!userid) return false;
         else return true;
     }
 }))

@@ -1,57 +1,88 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import InterviewCard from "@/components/mycomponents/InterviewCard"
 import { Link } from "react-router-dom"
-import {  Laptop } from "lucide-react"
+import { Laptop } from "lucide-react"
+import { useUser } from "@/store/UserStore"
+import axios from "axios"
+import CardSkeleton from "@/components/mycomponents/CardSkeleton"
 
 export default function DashboardPage() {
+  const [allInterviews, setAllInterviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getAllInterviews = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post("https://intervuai-3id4.onrender.com/ai/others", {});
+      const interviews = response.data.interviews;
+      setAllInterviews(interviews);
+    } catch (error) {
+      setAllInterviews([]);
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getAllInterviews();
+  },[])
+
+
   return (
     <main className="container mx-auto px-4 py-6 max-w-7xl">
-        {/* Hero Section */}
-        <section className="mb-10">
-          <div className="bg-[#1E1E2D] rounded-xl overflow-hidden">
-            <div className="p-6 md:p-8 flex flex-col md:flex-row items-center">
-              <div className="md:w-2/3 mb-6 md:mb-0">
-                <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                  Get Interview-Ready with AI-Powered Practice & Feedback
-                </h1>
-                <p className="text-gray-400 mb-4">Practice real interview questions & get instant feedback</p>
-                <Link to={"/generate-interview"}>
-                  <Button className="bg-purple-600 hover:bg-purple-700">Create an Interview</Button>
-                </Link>
-              </div>
-              <div className="md:w-1/3 flex justify-center">
-                <img
-                  src="/robot.png"
-                  alt="AI Interview Assistant"
-                  width={200}
-                  height={200}
-                  className="object-contain"
-                />
-              </div>
+      {/* Hero Section */}
+      <section className="mb-10">
+        <div className="bg-[#1E1E2D] rounded-xl overflow-hidden">
+          <div className="p-6 md:p-8 flex flex-col md:flex-row items-center">
+            <div className="md:w-2/3 mb-6 md:mb-0">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">
+                Get Interview-Ready with AI-Powered Practice & Feedback
+              </h1>
+              <p className="text-gray-400 mb-4">Practice real interview questions & get instant feedback</p>
+              <Link to={"/generate-interview"}>
+                <Button className="bg-purple-600 hover:bg-purple-700">Create an Interview</Button>
+              </Link>
+            </div>
+            <div className="md:w-1/3 flex justify-center">
+              <img
+                src="/robot.png"
+                alt="AI Interview Assistant"
+                width={200}
+                height={200}
+                className="object-contain"
+              />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Past Interviews Section */}
-        <section className="mb-10">
-          <h2 className="text-xl font-bold mb-4">Your Past Interviews</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {pastInterviews.map((interview) => (
-              <InterviewCard key={interview.id} interview={interview} type="own" />
-            ))}
-          </div>
-        </section>
+      {/* Past Interviews Section */}
+      <section className="mb-10">
+        <h2 className="text-xl font-bold mb-4">Your Past Interviews</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {allInterviews.map((interview) => (
+            <InterviewCard key={interview.id} interview={interview} type="own" />
+          ))}
+        </div>
+      </section>
 
-        {/* Pick Interview Section */}
-        <section>
-          <h2 className="text-xl font-bold mb-4">Pick Your Interview</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {interviewTypes.map((interview) => (
-              <InterviewCard key={interview.id} interview={interview} type="other" />
-            ))}
-          </div>
-        </section>
+      {/* Pick Interview Section */}
+      <section>
+        <h2 className="text-xl font-bold mb-4">Pick Your Interview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {allInterviews.map((interview) => {
+            if(loading) {
+              return (
+                <CardSkeleton/>
+                
+              )
+            }
+            else return (<InterviewCard key={interview._id} interview={interview} type="other" />)
+          })}
+        </div>
+      </section>
     </main>
   )
 }
@@ -60,60 +91,60 @@ export default function DashboardPage() {
 const pastInterviews = [
   {
     id: 1,
-    title: "Frontend Dev Interview",
+    role: "Frontend Dev Interview",
     date: "Feb 15, 2025",
     rating: "4.2",
     description:
       "This interview focuses on frontend development concepts including React, CSS, and responsive design. Time responded: 45 minutes.",
-    technical: true,
+    type: "technical",
     icon: "/covers/adobe.png"
   },
   {
     id: 2,
-    title: "Behavioral Interview",
+    role: "Behavioral Interview",
     date: "Feb 10, 2025",
     rating: "4.8",
     description: "This interview focuses on your soft skills and behavioral questions. Time responded: 35 minutes.",
-    technical: false,
+    type: "technical",
     icon: "/covers/amazon.png",
   },
   {
     id: 3,
-    title: "Backend Dev Interview",
+    role: "Backend Dev Interview",
     date: "Feb 05, 2025",
     rating: "4.5",
     description:
       "This interview focuses on backend development concepts including APIs, databases, and server architecture. Time responded: 50 minutes.",
-    technical: true,
+    type: "technical",
     icon: "/covers/pinterest.png",
   },
   {
     id: 4,
-    title: "Frontend Dev Interview",
+    role: "Frontend Dev Interview",
     date: "Feb 15, 2025",
     rating: "4.2",
     description:
       "This interview focuses on frontend development concepts including React, CSS, and responsive design. Time responded: 45 minutes.",
-    technical: true,
+    type: "technical",
     icon: "/covers/adobe.png"
   },
   {
     id: 5,
-    title: "Behavioral Interview",
+    role: "Behavioral Interview",
     date: "Feb 10, 2025",
     rating: "4.8",
     description: "This interview focuses on your soft skills and behavioral questions. Time responded: 35 minutes.",
-    technical: false,
+    type: "technical",
     icon: "/covers/amazon.png",
   },
   {
     id: 6,
-    title: "Backend Dev Interview",
+    role: "Backend Dev Interview",
     date: "Feb 05, 2025",
     rating: "4.5",
     description:
       "This interview focuses on backend development concepts including APIs, databases, and server architecture. Time responded: 50 minutes.",
-    technical: true,
+    type: "technical",
     icon: "/covers/pinterest.png",
   },
 ]
