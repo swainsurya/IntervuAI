@@ -123,7 +123,7 @@ export const getPastInterviewByUserId = async(req, res) => {
 
         user?.pastInterviews.map(async(interview) => {
             const getInterview = await interviewModel.findById(interview.interviewId);
-            pastInterview.push(getInterview);
+            pastInterviews.push(getInterview);
         })
 
         return res.status(200).json({
