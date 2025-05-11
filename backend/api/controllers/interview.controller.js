@@ -99,7 +99,7 @@ export const pastInterview = async(req, res) => {
     try {
         const user = await userModel.findById(userid);
         const interview = await interviewModel.findById(interviewId);
-        user.pastInterviews.push(interview)
+        user.pastInterviews.push({interviewId})
 
         await user.save();
 

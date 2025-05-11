@@ -4,6 +4,8 @@ import { vapi } from '@/lib/vapi.sdk'
 import { useNavigate } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
 import { interviewer } from '@/constants'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
 
@@ -19,6 +21,11 @@ const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
     const [messages, setMessages] = useState([]);
 
     const navigate = useNavigate();
+
+    const addToPastInterview = async() => {
+        const response = await axios.post("https://intervuai-3id4.onrender.com/ai/past-interview",{userid, interviewId});
+        toast.success("Interview Completed");
+    }
 
 
     useEffect(() => {
@@ -83,6 +90,7 @@ const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
             let formattedQuestions = '';
             if(questions) {
                 formattedQuestions = questions.map((question) => `-${question}`).join('\n')
+                addToPastInterview();
             }
 
             await vapi.start(interviewer,{
