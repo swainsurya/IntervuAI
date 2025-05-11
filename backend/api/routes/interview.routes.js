@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { generateInterview, getInterviewByid, getPastInterviewByUserId, myInterviews, othersInterview, pastInterview, setPastInterview } from "../controllers/interview.controller.js";
+import { generateInterview, getInterviewByid, getPastInterviewByUserId, myInterviews, othersInterview, setPastInterview } from "../controllers/interview.controller.js";
 
 const interviewRouter = Router();
 
