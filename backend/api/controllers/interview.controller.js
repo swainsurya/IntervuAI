@@ -1,6 +1,7 @@
 import { interviewModel } from "../models/interviewModel.js";
 import { GoogleGenAI } from "@google/genai";
 import "dotenv/config";
+import { userModel } from "../models/userModel.js";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEMINI_API_KEY });
 
@@ -89,6 +90,43 @@ export const getInterviewByid = async(req, res) => {
         return res.json({
             success: false,
             message: "Internal Server Error"
+        })
+    }
+}
+
+export const pastInterview = async(req, res) => {
+    const {userid, interviewId} = req.body;
+    try {
+        const user = await userModel.findById(userid);
+        const interview = await interviewModel.findById(interviewId);
+        user.pastInterviews.push(interview)
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Past Interview Added",
+            success: true
+        })
+    } catch (error) {
+        return res.status(200).json({
+            message: "Internal Server Error",
+            success: false
+        })
+    }
+}
+
+export const getPastInterviewByUserId = async(req, res) => {
+    const {userid} = req.body ;
+    try {
+        const user = await userModel.findById(userid);
+        const pastInterviews = user.pastInterviews ;
+        return res.status(200).json({
+            pastInterviews
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "Internal server error",
+            success: false
         })
     }
 }
