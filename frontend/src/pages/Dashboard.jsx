@@ -30,8 +30,8 @@ export default function DashboardPage() {
 
   const getPastInterviews = async () => {
     const response = await axios.post(`https://intervuai-3id4.onrender.com/ai/get-past-interviews`, { userid });
-    console.log(response.data?.pastInterviews);
-    setPastInterviews(response.data?.pastInterviews);
+    const interviews = response?.data?.pastInterviews;
+    setPastInterviews(interviews);
   }
 
   useEffect(() => {
@@ -70,12 +70,12 @@ export default function DashboardPage() {
 
       {/* Past Interviews Section */}
       {
-        pastInterviews.length > 0 && (
+        pastInterviews?.length > 0 && (
           <section className="mb-10">
             <h2 className="text-xl font-bold mb-4">Your Past Interviews</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {pastInterviews.map((interview) => (
-                <InterviewCard key={interview.id} interview={interview} type="own" />
+                <InterviewCard key={interview._id} interview={interview} type="own" />
               ))}
             </div>
           </section>

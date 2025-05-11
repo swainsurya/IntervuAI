@@ -119,7 +119,13 @@ export const getPastInterviewByUserId = async(req, res) => {
     const {userid} = req.body ;
     try {
         const user = await userModel.findById(userid);
-        const pastInterviews = user.pastInterviews ;
+        const pastInterviews = [];
+
+        user?.pastInterviews.map(async(interview) => {
+            const getInterview = await interviewModel.findById(interview.interviewId);
+            pastInterview.push(getInterview);
+        })
+
         return res.status(200).json({
             pastInterviews
         })
