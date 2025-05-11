@@ -2,6 +2,7 @@ import { interviewModel } from "../models/interviewModel.js";
 import { GoogleGenAI } from "@google/genai";
 import "dotenv/config";
 import { userModel } from "../models/userModel.js";
+import { pastInterviewModel } from "../models/pastInterviewModel.js";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEMINI_API_KEY });
 
@@ -94,38 +95,21 @@ export const getInterviewByid = async(req, res) => {
     }
 }
 
-export const pastInterview = async(req, res) => {
-    const {userid, interviewId} = req.body;
+export const setPastInterview = async(req, res) => {
+    const {userid, role, description, rating,interviewId} = req.body;
     try {
-        const user = await userModel.findById(userid);
-        const interview = await interviewModel.findById(interviewId);
-        user.pastInterviews.push({interviewId})
+        const pastInterview = new pastInterviewModel({userid,role,description,rating,interviewId});
 
-        await user.save();
-
-        return res.status(200).json({
-            message: "Past Interview Added",
-            success: true
-        })
+        await pastInterview.save();
     } catch (error) {
-        return res.status(200).json({
-            message: "Internal Server Error",
-            success: false
-        })
+        console.log(error);
     }
 }
 
 export const getPastInterviewByUserId = async(req, res) => {
     const {userid} = req.body ;
     try {
-        const user = await userModel.findById(userid);
-        const pastInterviews = [];
-
-        user?.pastInterviews.map(async(interview) => {
-            const getInterview = await interviewModel.findById(interview.interviewId);
-            pastInterviews.push(getInterview);
-        })
-
+        const pastInterviews = await pastInterviewModel.find({userid});
         return res.status(200).json({
             pastInterviews
         })
