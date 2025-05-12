@@ -14,7 +14,7 @@ const HeaderDashboard = () => {
                 <div className="bg-purple-600 rounded-full p-1.5">
                     <Laptop className="h-5 w-5" />
                 </div>
-                <span className="text-xl font-semibold">CREATIFY AI</span>
+                <span className="text-xl font-semibold">IntervuAI</span>
             </Link>
             <ProfileButton username={username}/>
         </header>
