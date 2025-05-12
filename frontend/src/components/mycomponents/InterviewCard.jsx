@@ -30,11 +30,10 @@ const InterviewCard = ({ interview, type }) => {
                 {type !== "own" && (
                     <Badge
                         variant="outline"
-                        className={`text-xs px-3 py-1 rounded-full border ${
-                            interview.technical
+                        className={`text-xs px-3 py-1 rounded-full border ${interview.technical
                                 ? "bg-blue-900/20 text-blue-400 border-blue-700"
                                 : "bg-green-900/20 text-green-400 border-green-700"
-                        }`}
+                            }`}
                     >
                         {interview.type || "General"}
                     </Badge>
@@ -46,11 +45,15 @@ const InterviewCard = ({ interview, type }) => {
                 <div className="flex items-center justify-between text-sm text-gray-300">
                     <div className="flex items-center gap-2">
                         <img src="/calendar.svg" alt="Calendar" className="h-4 w-4" />
-                        <span>May 12, 2025</span>
+                        <span>
+                            {feedback?.createdDate
+                            ? dayjs(feedback?.createdDate).format("MMM D, YYYY h:mm A")
+                            : "N/A"}
+                        </span>
                     </div>
                     <div className="flex items-center gap-2">
                         <img src="/star.svg" alt="Rating" className="h-4 w-4" />
-                        <span>50 / 100</span>
+                        <span> {interview.totalScore} / 100</span>
                     </div>
                 </div>
             )}
@@ -59,7 +62,7 @@ const InterviewCard = ({ interview, type }) => {
             <div className="text-sm text-gray-400 line-clamp-3 leading-relaxed">
                 {type !== "own"
                     ? interview?.questions[0] || "No tech stack information provided."
-                    : interview.description}
+                    : interview.desc}
             </div>
 
             {/* Footer */}
@@ -69,13 +72,13 @@ const InterviewCard = ({ interview, type }) => {
                     <img src="/tailwind.svg" alt="Tailwind" className="h-8 w-8 p-2 bg-[#1f334d] rounded-full shadow-sm" />
                 </div>
 
-                <Link to={type !== "own" ? `/take-interview/${interview._id}` : ``}>
+                <Link to={type !== "own" ? `/take-interview/${interview._id}` : `/interview/feedback/${interview._id}`}>
                     <Button
                         variant="outline"
                         size="sm"
                         className="text-xs bg-blue-900/20 text-blue-400 border-blue-700 hover:bg-blue-800/30 transition-colors"
                     >
-                        {type === "own" ? "View Interview" : "Take Interview"}
+                        {type === "own" ? "View Feedback" : "Take Interview"}
                     </Button>
                 </Link>
             </div>

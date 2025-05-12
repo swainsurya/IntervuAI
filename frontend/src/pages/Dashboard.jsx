@@ -27,7 +27,7 @@ export default function DashboardPage() {
 
   const getPastInterviews = async () => {
     try {
-      const response = await axios.post(`https://intervuai-3id4.onrender.com/ai/get-past-interviews`, { userid });
+      const response = await axios.post(`https://intervuai-3id4.onrender.com/feedback/all-feedback`, { userid });
       setPastInterviews(response.data.pastInterviews || []);
     } catch (error) {
       setPastInterviews([]);

@@ -22,9 +22,10 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
 
     const navigate = useNavigate();
 
-    const addToPastInterview = async() => {
-        const response = await axios.post("https://intervuai-3id4.onrender.com/ai/past-interview",{
-            userid, interviewId,role: interview?.role,description:questions[0] });
+    const addToPastInterview = async () => {
+        const response = await axios.post("https://intervuai-3id4.onrender.com/ai/past-interview", {
+            userid, interviewId, role: interview?.role, description: questions[0]
+        });
         toast.success("Interview Completed");
     }
 
@@ -79,26 +80,31 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
     const handleCall = async () => {
         setCallStatus(listStatus.CONNECTING);
 
-        if (type == "generate") {
-            const res = await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9", {
-                variableValues: {
-                    username: username,
-                    userid: userid
-                }
-            })
-        }
-        else {
-            let formattedQuestions = '';
-            if(questions) {
-                formattedQuestions = questions.map((question) => `-${question}`).join('\n')
-                addToPastInterview();
+        try {
+            if (type == "generate") {
+                const res = await vapi.start("b0ce4ebb-ac21-4b74-8add-f9d9c00754b9", {
+                    variableValues: {
+                        username: username,
+                        userid: userid
+                    }
+                })
             }
-
-            await vapi.start(interviewer,{
-                variableValues: {
-                    questions: formattedQuestions
+            else {
+                let formattedQuestions = '';
+                if (questions) {
+                    formattedQuestions = questions.map((question) => `-${question}`).join('\n')
+                    addToPastInterview();
                 }
-            })
+
+                await vapi.start(interviewer, {
+                    variableValues: {
+                        questions: formattedQuestions
+                    }
+                })
+            }
+        } catch (error) {
+            toast.error("Error in connecting try again");
+            return;
         }
     }
 
@@ -108,14 +114,14 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
     }
 
     const handleGenerateFeedback = async (messages) => {
-        const response = await axios.post("https://intervuai-3id4.onrender.com/feedback/create", {
-            userid, interviewId,messages
+        const response = await axios.post("http://localhost:3000/feedback/create", {
+            userid, interviewId, messages,role: interview.role, desc: questions[0]
         })
 
-        const result = response.data ;
+        const result = response.data;
         console.log("result :", result)
         if (result.success && result.feedbackId) {
-            navigate(`/interview/feedback/${interviewId}`)
+            navigate(`/interview/feedback/${result.feedbackId}`, { state: { interviewRole: interview?.role } })
         }
         else {
             console.log("Error saving feedback");

@@ -5,7 +5,7 @@ import "dotenv/config";
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEMINI_API_KEY });
 
 export const createFeedback = async (req, res) => {
-    const { interviewId, userid, messages } = req.body;
+    const { interviewId, userid, messages, role, desc } = req.body;
 
     try {
         // Format messages into a readable transcript
@@ -27,41 +27,65 @@ Respond ONLY with a valid JSON object. No explanations.
 Conversation:
 ${formattedMessage}
 `;
-
         // Call Gemini API
         const result = await ai.models.generateContent({
-            model: "gemini-1.5-flash", // Prefer the latest available
-            contents: [{ role: "user", parts: [{ text: prompt }] }]
+            model: "gemini-2.0-flash",
+            contents: prompt
         });
 
-        const response = await result.response;
-        const text = await response.text();
+        const text = await result.text ;
+        const cleanedText = text.replace(/```json|```/g, '').trim();
 
         // Try parsing JSON from Gemini output
-        let feedbackObj;
-        let feedback;
-        try {
-            feedbackObj = JSON.parse(text);
+        let feedbackObj = JSON.parse(cleanedText);
+        console.log(feedbackObj)
 
-            feedback = new feedBackModel({
-                interViewId: interviewId, userId:userid,
+        const feedback = new feedBackModel({
+                interViewId: interviewId, userId: userid,role,desc,
                 totalScore: feedbackObj.totalScore,
                 categoryScore: feedbackObj.categoryScore,
                 strengths: feedbackObj.strengths,
                 areasForImprovements: feedbackObj.areasForImprovements,
-                finalAssessment:feedbackObj.finalAssessment
+                finalAssessment: feedbackObj.finalAssessment
             })
             await feedback.save();
+            console.log(feedbackObj)
             return res.status(200).json({
                 success: true,
                 feedbackId: feedback._id
             })
-        } catch (parseError) {
-            return res.status(500).json({ error: "Failed to parse AI response.", raw: text });
-        }
 
     } catch (error) {
         console.error("Gemini API error:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
+export const getFeedbackById = async(req,res) => {
+    const {feedbackId} = req.body;
+    try {
+        const feedback = await feedBackModel.findById(feedbackId);
+        return res.status(200).json({
+            feedback
+        })
+    } catch (error) {
+        return res.status(400).json({
+            messages: 'Internal server error'
+        })
+    }
+}
+
+
+export const pastInterviewWithFeedback = async(req, res) => {
+    const {userid} = req.body;
+    try {
+        const pastInterviews = await feedBackModel.find({userId: userid});
+        return res.json({
+            pastInterviews
+        })
+    } catch (error) {
+        return res.status(400).json({
+            messages: "Internal server error"
+        })
+    }
+}
