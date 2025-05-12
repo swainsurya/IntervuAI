@@ -11,13 +11,15 @@ import {
     DialogDescription
 } from "@/components/ui/dialog"
 import Footer from "@/components/mycomponents/Footer"
+import { motion } from "framer-motion"
 
 const LandingPage = () => {
 
+    const scrollingTestimonials = [...testimonials, ...testimonials];
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Navigation */}
-            <header  className="cursor-pointer container mx-auto py-6 px-4 flex justify-between items-center">
+            <header className="cursor-pointer container mx-auto py-6 px-4 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                     <div className="bg-purple-600 rounded-full p-1.5">
                         <Laptop className="h-5 w-5" />
@@ -58,18 +60,42 @@ const LandingPage = () => {
 
             {/* Hero Section */}
             <section className="cursor-pointer container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-8">
-                <div className="flex-1 space-y-6">
+                {/* Left Content */}
+                <motion.div
+                    className="flex-1 space-y-6"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
                     <div className="flex gap-2">
                         <Badge className="bg-purple-600 text-white px-3 py-1">New</Badge>
                         <Badge className="bg-gray-800 text-white px-3 py-1">AI-Powered</Badge>
                     </div>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+
+                    <motion.h1
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.8 }}
+                    >
                         Get Interview-Ready with AI-Powered Practice & Feedback
-                    </h1>
-                    <p className="text-gray-400 text-lg md:text-xl">
+                    </motion.h1>
+
+                    <motion.p
+                        className="text-gray-400 text-lg md:text-xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                    >
                         Practice real interview questions & get instant feedback. Boost your confidence and land your dream job.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                    </motion.p>
+
+                    <motion.div
+                        className="flex flex-col sm:flex-row gap-4 pt-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                    >
                         <Link to={"/login"}>
                             <Button size="lg" className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto">
                                 Start Practicing Free
@@ -87,11 +113,11 @@ const LandingPage = () => {
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                    <DialogTitle>AI Interview Assistant Demo</DialogTitle>
                                     <DialogDescription>
                                         <video
-                                            src={"/images/hero.jpg"}
-                                            alt="AI Interview Assistant"
+                                            src={"/videos/demo.mp4"}
+                                            controls
                                             width={500}
                                             height={400}
                                             className="rounded-lg object-cover"
@@ -100,13 +126,26 @@ const LandingPage = () => {
                                 </DialogHeader>
                             </DialogContent>
                         </Dialog>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-400">
+                    </motion.div>
+
+                    <motion.div
+                        className="flex items-center gap-2 text-gray-400"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8, duration: 0.8 }}
+                    >
                         <CheckCircle className="h-5 w-5 text-green-500" />
                         <span>No credit card required</span>
-                    </div>
-                </div>
-                <div className="flex-1 relative">
+                    </motion.div>
+                </motion.div>
+
+                {/* Right Image */}
+                <motion.div
+                    className="flex-1 relative"
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                >
                     <div className="relative z-10">
                         <img
                             src={"/images/hero.jpg"}
@@ -117,7 +156,7 @@ const LandingPage = () => {
                         />
                     </div>
                     <div className="absolute -top-5 -left-5 w-full h-full bg-gradient-to-br from-purple-600/30 to-blue-600/30 rounded-lg -z-10"></div>
-                </div>
+                </motion.div>
             </section>
 
             {/* Features Section */}
@@ -211,35 +250,44 @@ const LandingPage = () => {
             </section>
 
             {/* Testimonials */}
-            <section className="bg-gray-900 py-16 md:py-24 cursor-pointer">
+            <section className="bg-gray-900 py-16 md:py-24 overflow-hidden">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                            What Our Users Say
+                        </h2>
                         <p className="text-gray-400 max-w-2xl mx-auto">
                             Join thousands of job seekers who have improved their interview skills with IntervuAI
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {testimonials.map((testimonial, index) => (
-                            <div key={index} className="bg-gray-800 p-6 rounded-xl">
-                                <div className="flex items-center gap-1 mb-4">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className="h-5 w-5 fill-yellow-500 text-yellow-500" />
-                                    ))}
-                                </div>
-                                <p className="text-gray-300 mb-6">"{testimonial.quote}"</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center">
-                                        <span className="font-bold">{testimonial.name.charAt(0)}</span>
+                    <div className="relative">
+                        <motion.div
+                            className="flex gap-6 w-max"
+                            animate={{ x: ["0%", "-50%"] }}
+                            transition={{
+                                repeat: Infinity,
+                                duration: 30,
+                                ease: "linear",
+                            }}
+                        >
+                            {scrollingTestimonials.map((testimonial, index) => (
+                                <div
+                                    key={index}
+                                    className="min-w-[320px] max-w-[320px] bg-gradient-to-br from-gray-800 to-gray-700 p-6 rounded-2xl shadow-lg border border-gray-700 shrink-0 hover:scale-[1.02] transition-transform duration-300"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div>
+                                            <div className="text-white font-semibold text-lg">{testimonial.name}</div>
+                                            <div className="text-sm text-gray-400">{testimonial.position}</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="font-medium">{testimonial.name}</p>
-                                        <p className="text-gray-400 text-sm">{testimonial.position}</p>
+                                    <div className="text-gray-300 text-sm leading-relaxed italic">
+                                        “{testimonial.quote}”
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -270,7 +318,7 @@ const LandingPage = () => {
                 </div>
             </section>
             {/* footer */}
-            <Footer/>
+            <Footer />
         </div>
     )
 }

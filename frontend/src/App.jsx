@@ -10,6 +10,7 @@ import AboutPage from './pages/AboutPage'
 import { Toaster } from 'react-hot-toast'
 import GenerateInterviewPage from './pages/GenerateInterviewPage'
 import TakeInterview from './pages/TakeInterview'
+import FeedbackPage from './pages/FeedbackPage'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/' element={<Dashboard />} />
           <Route path='/generate-interview' element={<GenerateInterviewPage/>} />
           <Route path='/take-interview/:id' element={<TakeInterview />} />
+          <Route path='/interview/feedback/:id' element={<FeedbackPage/>} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />

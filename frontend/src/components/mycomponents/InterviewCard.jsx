@@ -6,34 +6,39 @@ import { Link } from 'react-router-dom';
 
 const InterviewCard = ({ interview, type }) => {
     const icon = randomIcons();
-    console.log(interview)
     return (
-        <div className="bg-[#1E1E2D] rounded-2xl border border-gray-800 shadow-md p-5 space-y-5 hover:shadow-lg transition-all duration-200">
+        <div className="bg-gradient-to-br from-[#1E1E2D] to-[#131321] rounded-3xl border border-[#2A2A3A] shadow-xl p-6 space-y-6 hover:shadow-2xl transition-all duration-300 group">
 
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#2A2A3A] flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-[#2F2F40] flex items-center justify-center shadow-inner">
                         <img src={icon} alt="icon" className="h-7 w-7" />
                     </div>
-                    <div className='flex flex-col items-center'>
-                        <span className="text-lg font-semibold text-white">{interview.role || "Unknown Role"}</span>
+                    <div className='flex flex-col'>
+                        <span className="text-lg font-semibold text-white tracking-wide">
+                            {interview.role || "Unknown Role"}
+                        </span>
+                        {type === "own" && (
+                            <span className="text-xs text-gray-400">
+                                My Interview
+                            </span>
+                        )}
                     </div>
                 </div>
 
-                {
-                    type !== "own" && (
-                        <Badge
-                            variant="outline"
-                            className={`text-xs px-3 py-1 rounded-full ${interview.technical
-                                ? "bg-blue-900/20 text-blue-400 border-blue-800"
-                                : "bg-green-900/20 text-green-400 border-green-800"
-                                }`}
-                        >
-                            {interview.type || "General"}
-                        </Badge>
-                    )
-                }
+                {type !== "own" && (
+                    <Badge
+                        variant="outline"
+                        className={`text-xs px-3 py-1 rounded-full border ${
+                            interview.technical
+                                ? "bg-blue-900/20 text-blue-400 border-blue-700"
+                                : "bg-green-900/20 text-green-400 border-green-700"
+                        }`}
+                    >
+                        {interview.type || "General"}
+                    </Badge>
+                )}
             </div>
 
             {/* Time & Score */}
@@ -50,22 +55,25 @@ const InterviewCard = ({ interview, type }) => {
                 </div>
             )}
 
-            {/* Techstacks */}
-            <div className="text-sm text-gray-400 line-clamp-3">
-                {type!=="own"?(interview?.questions[0] || "No tech stack information provided."):(interview.description)}
+            {/* Techstacks / Description */}
+            <div className="text-sm text-gray-400 line-clamp-3 leading-relaxed">
+                {type !== "own"
+                    ? interview?.questions[0] || "No tech stack information provided."
+                    : interview.description}
             </div>
 
             {/* Footer */}
             <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                    <img src="/react.svg" alt="React" className="h-8 w-8 p-1.5 bg-blue-900/20 rounded-full" />
-                    <img src="/tailwind.svg" alt="Tailwind" className="h-8 w-8 p-1.5 bg-blue-900/20 rounded-full" />
+                    <img src="/react.svg" alt="React" className="h-8 w-8 p-2 bg-[#243c5a] rounded-full shadow-sm" />
+                    <img src="/tailwind.svg" alt="Tailwind" className="h-8 w-8 p-2 bg-[#1f334d] rounded-full shadow-sm" />
                 </div>
-                <Link to={type != "own" ? `/take-interview/${interview._id}` : ``}>
+
+                <Link to={type !== "own" ? `/take-interview/${interview._id}` : ``}>
                     <Button
                         variant="outline"
                         size="sm"
-                        className="text-xs bg-blue-900/20 text-blue-400 border-blue-800 hover:bg-blue-800/30"
+                        className="text-xs bg-blue-900/20 text-blue-400 border-blue-700 hover:bg-blue-800/30 transition-colors"
                     >
                         {type === "own" ? "View Interview" : "Take Interview"}
                     </Button>

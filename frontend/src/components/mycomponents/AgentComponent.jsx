@@ -108,10 +108,12 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
     }
 
     const handleGenerateFeedback = async (messages) => {
-        console.log("Generate feedback here.");
-        const { success, id } = { success: true, id: "feedback-id" }
+        const response = await axios.post("https://intervuai-3id4.onrender.com/feedback/create", {
+            userid, interviewId,messages
+        })
 
-        if (success && id) {
+        const result = response.data ;
+        if (result.success && result.feedbackId) {
             navigate(`/interview/feedback/${interviewId}`)
         }
         else {

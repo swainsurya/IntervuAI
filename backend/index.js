@@ -5,6 +5,7 @@ import authRouter from "./api/routes/auth.routes.js";
 import interviewRouter from "./api/routes/interview.routes.js";
 import cors from "cors";
 import job from "./api/lib/cron.js";
+import feedBackRouter from "./api/routes/feedback.routes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,6 +26,7 @@ app.use(express.json());
 // routing in server 
 app.use("/auth", authRouter);
 app.use("/ai", interviewRouter);
+app.use("/feedback",feedBackRouter);
 
 app.get("/", (req, res) => {
     res.json({

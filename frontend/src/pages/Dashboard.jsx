@@ -58,7 +58,7 @@ export default function DashboardPage() {
                 </Button>
               </Link>
             </div>
-            <img src="/robot.png" alt="AI Robot" className="w-48 h-48 object-contain drop-shadow-lg" />
+            <img src="/images/home_logo.png" alt="AI Robot" width={290} className=" object-contain drop-shadow-lg" />
           </div>
         </div>
       </section>
