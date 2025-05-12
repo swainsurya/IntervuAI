@@ -7,7 +7,7 @@ import { interviewer } from '@/constants'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
+const AgentComponent = ({ username, userid, type, interviewId, questions, interview }) => {
 
     const listStatus = {
         INACTIVE: "INACTIVE",
@@ -23,7 +23,8 @@ const AgentComponent = ({ username, userid, type, interviewId, questions }) => {
     const navigate = useNavigate();
 
     const addToPastInterview = async() => {
-        const response = await axios.post("https://intervuai-3id4.onrender.com/ai/past-interview",{userid, interviewId});
+        const response = await axios.post("https://intervuai-3id4.onrender.com/ai/past-interview",{
+            userid, interviewId,role: interview?.role,description:questions[0] });
         toast.success("Interview Completed");
     }
 

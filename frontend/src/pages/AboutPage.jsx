@@ -8,20 +8,43 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-[#121212] text-white">
             {/* Header */}
-            <header className="border-b border-gray-800 px-4 py-3 flex justify-between items-center">
-                <Link href="/dashboard" className="flex items-center gap-2">
+            <header  className="cursor-pointer container mx-auto py-6 px-4 flex justify-between items-center">
+                <Link to={"/"} className="flex items-center gap-2">
                     <div className="bg-purple-600 rounded-full p-1.5">
                         <Laptop className="h-5 w-5" />
                     </div>
-                    <span className="text-xl font-semibold">IntervuAI</span>
+                    <span className="font-bold text-xl">IntervuAI</span>
                 </Link>
-                <div className="flex items-center gap-4">
-                    <Link href="/dashboard">
-                        <Button variant="ghost" className="text-white hover:text-purple-300">
-                            Dashboard
+                <div className="hidden md:flex items-center gap-4">
+                    <Link to={"/login"}>
+                        <Button variant="outline" className="text-white border-gray-700 bg-gray-800">
+                            Login
+                        </Button>
+                    </Link>
+                    <Link to={"/register"}>
+                        <Button className="bg-purple-600 hover:bg-purple-700">
+                            Sign Up
                         </Button>
                     </Link>
                 </div>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-menu"
+                    >
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </Button>
             </header>
 
             {/* Main Content */}
@@ -41,7 +64,7 @@ export default function AboutPage() {
                         <div className="md:flex">
                             <div className="md:w-1/3 p-6 flex justify-center">
                                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-purple-600">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Student" fill className="object-cover" />
+                                    <img src="/images/myphoto.png" alt="Student" fill className="object-cover" />
                                 </div>
                             </div>
                             <div className="md:w-2/3 p-6">
@@ -64,7 +87,7 @@ export default function AboutPage() {
                                                 React.js
                                             </Badge>
                                             <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                                Next.js
+                                                MongoDB
                                             </Badge>
                                             <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
                                                 JavaScript
@@ -81,18 +104,15 @@ export default function AboutPage() {
                                         </div>
                                     </div>
                                     <div className="flex gap-3 pt-2">
-                                        <Button variant="" size="icon" className="rounded-full">
+                                        <a  href="https://github.com/swainsurya" target="_blank"  variant="" size="icon" className="rounded-full">
                                             <Github className="h-4 w-4" />
-                                            <span className="sr-only">GitHub</span>
-                                        </Button>
-                                        <Button variant="" size="icon" className="rounded-full">
+                                        </a>
+                                        <a href="https://www.linkedin.com/in/suryakanta-swain/" target="_blank" variant="" size="icon" className="rounded-full">
                                             <Linkedin className="h-4 w-4" />
-                                            <span className="sr-only">LinkedIn</span>
-                                        </Button>
-                                        <Button variant="" size="icon" className="rounded-full">
+                                        </a>
+                                        <a href="mailto:swainsuryakanta97@gmail.com" variant="" size="icon" className="rounded-full">
                                             <Mail className="h-4 w-4" />
-                                            <span className="sr-only">Email</span>
-                                        </Button>
+                                        </a>
                                     </div>
                                 </CardContent>
                             </div>
@@ -107,7 +127,7 @@ export default function AboutPage() {
                         <div className="md:flex flex-row-reverse">
                             <div className="md:w-1/3 p-6 flex justify-center items-center">
                                 <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-700">
-                                    <img src="/placeholder.svg?height=200&width=300" alt="College" fill className="object-cover" />
+                                    <img src="/images/college.png" alt="College" fill className="object-cover" />
                                 </div>
                             </div>
                             <div className="md:w-2/3 p-6">
@@ -140,7 +160,7 @@ export default function AboutPage() {
                                     </div>
                                     <Button variant="" className="gap-2">
                                         <ExternalLink className="h-4 w-4" />
-                                        Visit College Website
+                                        <a href="https://eatm.in/" target="_blank">Visit College Website</a>
                                     </Button>
                                 </CardContent>
                             </div>
@@ -219,7 +239,7 @@ export default function AboutPage() {
                     <Card className="bg-[#1E1E2D] border-gray-800 text-white">
                         <CardHeader>
                             <CardTitle className="text-xl text-white">IntervuAI: AI-Powered Interview Preparation Platform</CardTitle>
-                            <CardDescription className="text-gray-400">Final Year Project, 2024-2025</CardDescription>
+                            <CardDescription className="text-gray-400">Final Year Project, 2025-2026</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <p className="text-gray-300">
@@ -243,22 +263,25 @@ export default function AboutPage() {
                                 <p className="font-medium text-white">Technologies Used:</p>
                                 <div className="flex flex-wrap gap-2">
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                        Next.js
+                                        React Js
                                     </Badge>
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                        React
+                                        MongoDB
                                     </Badge>
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                        TypeScript
+                                        JavaScript
                                     </Badge>
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
                                         Tailwind CSS
                                     </Badge>
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                        Supabase
+                                        Shadcn
                                     </Badge>
                                     <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
-                                        OpenAI API
+                                        Gemini Api
+                                    </Badge>
+                                    <Badge className="bg-purple-900/50 text-purple-300 border-purple-700 hover:bg-purple-900/70">
+                                        Vapi Api
                                     </Badge>
                                 </div>
                             </div>

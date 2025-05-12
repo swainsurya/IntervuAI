@@ -22,7 +22,7 @@ const LandingPage = () => {
                     <div className="bg-purple-600 rounded-full p-1.5">
                         <Laptop className="h-5 w-5" />
                     </div>
-                    <span className="font-bold text-xl">IntervuAI</span>
+                    <span className="font-bold text-xl">CREATIFY AI</span>
                 </div>
                 <div className="hidden md:flex items-center gap-4">
                     <Link to={"/login"}>

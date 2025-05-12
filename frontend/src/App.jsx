@@ -7,7 +7,6 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProtectLanding from './components/mycomponents/ProtectLanding'
 import AboutPage from './pages/AboutPage'
-import ProfilePage from './pages/ProfilePage'
 import { Toaster } from 'react-hot-toast'
 import GenerateInterviewPage from './pages/GenerateInterviewPage'
 import TakeInterview from './pages/TakeInterview'
@@ -27,7 +26,6 @@ const App = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/about' element={<AboutPage/>} />
-        <Route path='/profile' element={<ProfilePage/>} />
       </Routes>
       <Toaster toastOptions={{position:"top-center"}}/>
     </BrowserRouter>

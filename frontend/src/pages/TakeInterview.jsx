@@ -49,6 +49,7 @@ const TakeInterview = () => {
                     interviewId={id}
                     type={"interview"}
                     questions={interview?.questions}
+                    interview={interview}
                 />
             </div>
         </>

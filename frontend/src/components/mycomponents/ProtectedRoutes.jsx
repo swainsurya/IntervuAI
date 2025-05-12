@@ -1,9 +1,8 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
 import React, { useState } from 'react'
 import { useUser } from "@/store/UserStore";
-import { Laptop } from "lucide-react";
 import HeaderDashboard from "./HeaderDashboard";
-import Footer from "./Footer";
+import "@/index.css"
 
 const ProtectedRoutes = () => {
   const { checkAuth } = useUser();

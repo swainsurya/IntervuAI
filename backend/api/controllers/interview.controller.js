@@ -120,3 +120,19 @@ export const getPastInterviewByUserId = async(req, res) => {
         })
     }
 }
+
+export const createFeedback = async(req, res) => {
+    const {interviewId, userid, messages } = req.body;
+    try {
+        const formattedMessage = messages.map((sentence) => (
+            `-${sentence?.role}: ${sentence.content}\n`
+        )).join('');
+
+        const feedbackObj = await ai.models.generateContent({
+            model:"gemini-2.0-flash",
+            system: "You are a professional interviewer."
+        })
+    } catch (error) {
+        
+    }
+}

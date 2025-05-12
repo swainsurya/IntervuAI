@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const InterviewCard = ({ interview, type }) => {
     const icon = randomIcons();
+    console.log(interview)
     return (
         <div className="bg-[#1E1E2D] rounded-2xl border border-gray-800 shadow-md p-5 space-y-5 hover:shadow-lg transition-all duration-200">
 
@@ -20,15 +21,19 @@ const InterviewCard = ({ interview, type }) => {
                     </div>
                 </div>
 
-                <Badge
-                    variant="outline"
-                    className={`text-xs px-3 py-1 rounded-full ${interview.technical
-                            ? "bg-blue-900/20 text-blue-400 border-blue-800"
-                            : "bg-green-900/20 text-green-400 border-green-800"
-                        }`}
-                >
-                    {interview.type || "General"}
-                </Badge>
+                {
+                    type !== "own" && (
+                        <Badge
+                            variant="outline"
+                            className={`text-xs px-3 py-1 rounded-full ${interview.technical
+                                ? "bg-blue-900/20 text-blue-400 border-blue-800"
+                                : "bg-green-900/20 text-green-400 border-green-800"
+                                }`}
+                        >
+                            {interview.type || "General"}
+                        </Badge>
+                    )
+                }
             </div>
 
             {/* Time & Score */}
@@ -47,7 +52,7 @@ const InterviewCard = ({ interview, type }) => {
 
             {/* Techstacks */}
             <div className="text-sm text-gray-400 line-clamp-3">
-                {interview?.questions[0] || "No tech stack information provided."}
+                {type!=="own"?(interview?.questions[0] || "No tech stack information provided."):(interview.description)}
             </div>
 
             {/* Footer */}
@@ -56,7 +61,7 @@ const InterviewCard = ({ interview, type }) => {
                     <img src="/react.svg" alt="React" className="h-8 w-8 p-1.5 bg-blue-900/20 rounded-full" />
                     <img src="/tailwind.svg" alt="Tailwind" className="h-8 w-8 p-1.5 bg-blue-900/20 rounded-full" />
                 </div>
-                <Link to={type!="own"? `/take-interview/${interview._id}`: ``}>
+                <Link to={type != "own" ? `/take-interview/${interview._id}` : ``}>
                     <Button
                         variant="outline"
                         size="sm"

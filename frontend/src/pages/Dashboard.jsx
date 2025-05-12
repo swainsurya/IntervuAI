@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import InterviewCard from "@/components/mycomponents/InterviewCard"
-import { Link } from "react-router-dom"
-import { Laptop } from "lucide-react"
-import { useUser } from "@/store/UserStore"
-import axios from "axios"
-import CardSkeleton from "@/components/mycomponents/CardSkeleton"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import InterviewCard from "@/components/mycomponents/InterviewCard";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import CardSkeleton from "@/components/mycomponents/CardSkeleton";
+import { Home, PlusCircle, User } from "lucide-react";
 
 export default function DashboardPage() {
   const [allInterviews, setAllInterviews] = useState([]);
   const [pastInterviews, setPastInterviews] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const userid = localStorage.getItem("userid");
 
@@ -18,87 +17,100 @@ export default function DashboardPage() {
     setLoading(true);
     try {
       const response = await axios.post("https://intervuai-3id4.onrender.com/ai/others", {});
-      const interviews = response.data.interviews;
-      setAllInterviews(interviews);
+      setAllInterviews(response.data.interviews || []);
     } catch (error) {
       setAllInterviews([]);
+    } finally {
+      setTimeout(() => setLoading(false), 2000);
     }
-    finally {
-      setLoading(false);
-    }
-  }
+  };
 
   const getPastInterviews = async () => {
-    const response = await axios.post(`https://intervuai-3id4.onrender.com/ai/get-past-interviews`, { userid });
-    const interviews = response?.data?.pastInterviews;
-    setPastInterviews(interviews);
-
-    console.log(response) 
-  }
+    try {
+      const response = await axios.post(`https://intervuai-3id4.onrender.com/ai/get-past-interviews`, { userid });
+      setPastInterviews(response.data.pastInterviews || []);
+    } catch (error) {
+      setPastInterviews([]);
+    }
+  };
 
   useEffect(() => {
     getAllInterviews();
     getPastInterviews();
-  }, [])
-
+  }, []);
 
   return (
-    <main className="container mx-auto px-4 py-6 max-w-7xl">
+    <main className="container mx-auto px-4 py-10 max-w-7xl no_Scrollbar">
       {/* Hero Section */}
-      <section className="mb-10">
-        <div className="bg-[#1E1E2D] rounded-xl overflow-hidden">
-          <div className="p-6 md:p-8 flex flex-col md:flex-row items-center">
-            <div className="md:w-2/3 mb-6 md:mb-0">
-              <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                Get Interview-Ready with AI-Powered Practice & Feedback
+      <section className="mb-14">
+        <div className="rounded-3xl bg-gradient-to-br from-[#1E1E2D] via-[#292943] to-[#1E1E2D] p-8 md:p-12 shadow-2xl backdrop-blur-md border border-gray-700">
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="flex-1">
+              <h1 className="text-4xl font-extrabold text-white mb-4">
+                Crack Interviews Confidently with AI
               </h1>
-              <p className="text-gray-400 mb-4">Practice real interview questions & get instant feedback</p>
-              <Link to={"/generate-interview"}>
-                <Button className="bg-purple-600 hover:bg-purple-700">Create an Interview</Button>
+              <p className="text-gray-300 text-lg mb-6">
+                Generate mock interviews, get real-time feedback, and build confidence — all powered by AI.
+              </p>
+              <Link to="/generate-interview">
+                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:brightness-110 transition">
+                  🎯 Start an Interview
+                </Button>
               </Link>
             </div>
-            <div className="md:w-1/3 flex justify-center">
-              <img
-                src="/robot.png"
-                alt="AI Interview Assistant"
-                width={200}
-                height={200}
-                className="object-contain"
-              />
-            </div>
+            <img src="/robot.png" alt="AI Robot" className="w-48 h-48 object-contain drop-shadow-lg" />
           </div>
         </div>
       </section>
 
-      {/* Past Interviews Section */}
-      {
-        allInterviews?.length > 0 && (
-          <section className="mb-10">
-            <h2 className="text-xl font-bold mb-4">Your Past Interviews</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allInterviews.map((interview) => (
+      {/* Past Interviews */}
+      {pastInterviews.length > 0 && (
+        <section className="mb-14">
+          <h2 className="text-2xl font-bold text-white mb-6">🗂️ Your Past Interviews</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {loading
+              ? Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)
+              : pastInterviews.map((interview) => (
                 <InterviewCard key={interview._id} interview={interview} type="own" />
               ))}
-            </div>
-          </section>
-        )
-      }
+          </div>
+        </section>
+      )}
 
-      {/* Pick Interview Section */}
-      <section>
-        <h3 className="text-2xl font-bold mb-4">Pick Interview Generated By others</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {allInterviews.map((interview) => {
-            if (loading) {
-              return (
-                <CardSkeleton />
-
-              )
-            }
-            else return (<InterviewCard key={interview._id} interview={interview} type="other" />)
-          })}
+      {/* Public Interviews */}
+      <section className="mb-24">
+        <h2 className="text-2xl font-bold text-white mb-6">🌍 Interviews by Others</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
+            : allInterviews.map((interview) => (
+              <InterviewCard key={interview._id} interview={interview} type="other" />
+            ))}
         </div>
       </section>
+
+      {/* Floating Resume Button */}
+      <Button className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-semibold px-4 py-2 rounded-2xl shadow-lg">
+        🧠 AI Resume Reviewer
+      </Button>
+
+      {/* Mobile nav */}
+      <nav className="fixed bottom-0 left-0 w-full bg-[#1e1e2d] border-t border-gray-700 sm:hidden z-50">
+        <div className="flex justify-around items-center py-2 text-white text-sm">
+          <Link to="/" className="flex flex-col items-center gap-1">
+            <Home className="text-xl" />
+            <span className="text-xs">Home</span>
+          </Link>
+          <Link to="/generate-interview" className="flex flex-col items-center gap-1">
+            <PlusCircle className="text-xl" />
+            <span className="text-xs">Create</span>
+          </Link>
+          <Link to="/profile" className="flex flex-col items-center gap-1">
+            <User className="text-xl" />
+            <span className="text-xs">Profile</span>
+          </Link>
+        </div>
+      </nav>
     </main>
-  )
+  );
 }

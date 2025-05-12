@@ -260,6 +260,14 @@ h3 {
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: block;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
