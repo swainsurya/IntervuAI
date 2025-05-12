@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { randomIcons } from '@/lib/randomIcons';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const InterviewCard = ({ interview, type }) => {
     const icon = randomIcons();
@@ -46,8 +47,8 @@ const InterviewCard = ({ interview, type }) => {
                     <div className="flex items-center gap-2">
                         <img src="/calendar.svg" alt="Calendar" className="h-4 w-4" />
                         <span>
-                            {feedback?.createdDate
-                            ? dayjs(feedback?.createdDate).format("MMM D, YYYY h:mm A")
+                            {interview?.createdDate
+                            ? dayjs(interview?.createdDate).format("MMM D, YYYY h:mm A")
                             : "N/A"}
                         </span>
                     </div>
