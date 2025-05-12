@@ -1,8 +1,6 @@
 import { interviewModel } from "../models/interviewModel.js";
 import { GoogleGenAI } from "@google/genai";
 import "dotenv/config";
-import { userModel } from "../models/userModel.js";
-import { pastInterviewModel } from "../models/pastInterviewModel.js";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEMINI_API_KEY });
 
