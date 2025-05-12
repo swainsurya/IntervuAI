@@ -94,29 +94,3 @@ export const getInterviewByid = async(req, res) => {
         })
     }
 }
-
-export const setPastInterview = async(req, res) => {
-    const {userid, role, description, rating,interviewId} = req.body;
-    try {
-        const pastInterview = new pastInterviewModel({userid,role,description,rating,interviewId});
-
-        await pastInterview.save();
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export const getPastInterviewByUserId = async(req, res) => {
-    const {userid} = req.body ;
-    try {
-        const pastInterviews = await pastInterviewModel.find({userid});
-        return res.status(200).json({
-            pastInterviews
-        })
-    } catch (error) {
-        return res.status(400).json({
-            message: "Internal server error",
-            success: false
-        })
-    }
-}
