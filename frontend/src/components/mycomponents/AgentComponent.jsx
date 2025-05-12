@@ -113,6 +113,7 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
         })
 
         const result = response.data ;
+        console.log("result :", result)
         if (result.success && result.feedbackId) {
             navigate(`/interview/feedback/${interviewId}`)
         }
