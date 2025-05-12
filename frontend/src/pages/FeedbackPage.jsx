@@ -16,7 +16,7 @@ const Feedback = () => {
 
   const getFeedback = async () => {
     try {
-      const feedback = await axios.post("http://localhost:3000/feedback/get-feedback-by-id", { feedbackId: id });
+      const feedback = await axios.post("https://intervuai-3id4.onrender.com/feedback/get-feedback-by-id", { feedbackId: id });
       const data = feedback.data.feedback;
       setFeedback(data);
       console.log(data)

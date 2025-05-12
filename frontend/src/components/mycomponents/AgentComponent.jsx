@@ -114,7 +114,7 @@ const AgentComponent = ({ username, userid, type, interviewId, questions, interv
     }
 
     const handleGenerateFeedback = async (messages) => {
-        const response = await axios.post("http://localhost:3000/feedback/create", {
+        const response = await axios.post("https://intervuai-3id4.onrender.com/feedback/create", {
             userid, interviewId, messages,role: interview.role, desc: questions[0]
         })
 
