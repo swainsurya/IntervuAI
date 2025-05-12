@@ -46,7 +46,7 @@ export default function DashboardPage() {
         <div className="rounded-3xl bg-gradient-to-br from-[#1E1E2D] via-[#292943] to-[#1E1E2D] p-8 md:p-12 shadow-2xl backdrop-blur-md border border-gray-700">
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="flex-1">
-              <h1 className="text-4xl font-extrabold text-white mb-4">
+              <h1 className="text-4xl font-extrabold text-white mb-4 hidden sm:block">
                 Crack Interviews Confidently with AI
               </h1>
               <p className="text-gray-300 text-lg mb-6">
@@ -54,11 +54,11 @@ export default function DashboardPage() {
               </p>
               <Link to="/generate-interview">
                 <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:brightness-110 transition">
-                  🎯 Start an Interview
+                  🎯 Create Interview
                 </Button>
               </Link>
             </div>
-            <img src="/images/home_logo.png" alt="AI Robot" width={290} className=" object-contain drop-shadow-lg" />
+            <img src="/images/home_logo.png" alt="AI Robot" width={290} className=" object-contain drop-shadow-lg hidden sm:block" />
           </div>
         </div>
       </section>
@@ -70,7 +70,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => <CardSkeleton key={i} />)
-              : pastInterviews.map((interview) => (
+              : pastInterviews.reverse().map((interview) => (
                 <InterviewCard key={interview._id} interview={interview} type="own" />
               ))}
           </div>
