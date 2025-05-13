@@ -10,7 +10,10 @@ const CreatedInterviewPage = () => {
         setLoading(true);
         try {
             const response = await axios.post("https://intervuai-3id4.onrender.com/ai/my-interviews", { userid });
+            const data = await response ;
             setAllInterviews(response.data.interviews || []);
+            console.log(response)
+            console.log(data)
         } catch (error) {
             setAllInterviews([]);
         } finally {
@@ -20,7 +23,7 @@ const CreatedInterviewPage = () => {
 
     useEffect(() => {
         getAllInterviews();
-    }, [])
+    }, [userid])
     return (
         <main className="container mx-auto px-4 py-10 max-w-7xl no_Scrollbar">
             <section className="mb-24">
