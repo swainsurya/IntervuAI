@@ -34,7 +34,7 @@
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/intervuai.git
+git clone https://github.com/swainsurya/intervuai.git
 cd intervuai
 ```
 
