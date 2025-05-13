@@ -34,8 +34,8 @@
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/swainsurya/intervuai.git
-cd intervuai
+git clone https://github.com/swainsurya/IntervuAI
+cd IntervuAI
 ```
 
 ### 2. Backend Setup
