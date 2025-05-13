@@ -104,6 +104,5 @@ MIT License
 
 For queries or collaborations:
 
-- **Surakanth Swamy**  
-- 📧 surakanthswamy@example.com  
-- 🌐 [LinkedIn](https://www.linkedin.com/in/surakanthswamy)
+- **Surakanth Swain**  
+- 📧 swainsurya.officials@gmail.com
