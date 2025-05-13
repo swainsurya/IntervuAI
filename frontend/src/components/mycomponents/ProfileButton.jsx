@@ -25,7 +25,7 @@ const ProfileButton = ({ username }) => {
         <MenubarContent className="w-56 bg-[#1E1E2D] border border-gray-700 shadow-lg rounded-md p-2">
           <MenubarItem asChild>
             <Link
-              href="/my-interviews"
+              to="/interview/my-interviews"
               className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm text-white cursor-pointer"
             >
               <FolderOpen className="h-4 w-4 text-blue-400" />
