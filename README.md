@@ -86,7 +86,7 @@ npm start
 ---
 
 ## Working Structure
-(url) (https://app.eraser.io/workspace/kSBfnEmw1TN4fjKCGT0k?origin=share)
+https://app.eraser.io/workspace/kSBfnEmw1TN4fjKCGT0k?origin=share
 
 ## 🤝 Contributing
 
