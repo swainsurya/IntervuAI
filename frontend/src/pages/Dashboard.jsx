@@ -90,26 +90,40 @@ export default function DashboardPage() {
       </section>
 
       {/* Floating Resume Button */}
-      <Button className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-semibold px-4 py-2 rounded-2xl shadow-lg">
-        🧠 AI Resume Reviewer
-      </Button>
+      {userid == "68205b3161be9593900eda0c" && (
+        <Link to={"/admin"}>
+          <Button className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-semibold px-4 py-2 rounded-2xl shadow-lg">
+            ADMIN PANEL
+          </Button>
+        </Link>
+      )}
 
       {/* Mobile nav */}
       <nav className="fixed bottom-0 left-0 w-full bg-[#1e1e2d] border-t border-gray-700 sm:hidden z-50">
-        <div className="flex justify-around items-center py-2 text-white text-sm">
-          <Link to="/" className="flex flex-col items-center gap-1">
-            <Home className="text-xl" />
-            <span className="text-xs">Home</span>
-          </Link>
-          <Link to="/generate-interview" className="flex flex-col items-center gap-1">
-            <PlusCircle className="text-xl" />
-            <span className="text-xs">Create</span>
-          </Link>
-          <Link to="/profile" className="flex flex-col items-center gap-1">
-            <User className="text-xl" />
-            <span className="text-xs">Profile</span>
-          </Link>
-        </div>
+        {
+          userid == "68205b3161be9593900eda0c" ? (
+            <Link to={"/admin"}>
+              <Button className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-semibold px-4 py-2 rounded-2xl shadow-lg">
+                ADMIN PANEL
+              </Button>
+            </Link>
+          ) : (
+            <div className="flex justify-around items-center py-2 text-white text-sm">
+              <Link to="/" className="flex flex-col items-center gap-1">
+                <Home className="text-xl" />
+                <span className="text-xs">Home</span>
+              </Link>
+              <Link to="/generate-interview" className="flex flex-col items-center gap-1">
+                <PlusCircle className="text-xl" />
+                <span className="text-xs">Create</span>
+              </Link>
+              <Link to="/interview/my-interviews" className="flex flex-col items-center gap-1">
+                <User className="text-xl" />
+                <span className="text-xs">Profile</span>
+              </Link>
+            </div>
+          )
+        }
       </nav>
     </main>
   );

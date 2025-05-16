@@ -1,5 +1,6 @@
 import CardSkeleton from '@/components/mycomponents/CardSkeleton'
 import InterviewCard from '@/components/mycomponents/InterviewCard'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const CreatedInterviewPage = () => {
@@ -10,10 +11,8 @@ const CreatedInterviewPage = () => {
         setLoading(true);
         try {
             const response = await axios.post("https://intervuai-3id4.onrender.com/ai/my-interviews", { userid });
-            const data = await response ;
+            const data = response.data ;
             setAllInterviews(response.data.interviews || []);
-            console.log(response)
-            console.log(data)
         } catch (error) {
             setAllInterviews([]);
         } finally {
@@ -23,7 +22,7 @@ const CreatedInterviewPage = () => {
 
     useEffect(() => {
         getAllInterviews();
-    }, [userid])
+    }, [])
     return (
         <main className="container mx-auto px-4 py-10 max-w-7xl no_Scrollbar">
             <section className="mb-24">
@@ -32,7 +31,7 @@ const CreatedInterviewPage = () => {
                     {loading
                         ? Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
                         : allInterviews.map((interview) => (
-                            <InterviewCard key={interview._id} interview={interview} type="other" />
+                            <InterviewCard key={interview._id} interview={interview} type="self" />
                         ))}
                 </div>
             </section>

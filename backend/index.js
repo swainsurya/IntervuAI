@@ -6,10 +6,10 @@ import interviewRouter from "./api/routes/interview.routes.js";
 import cors from "cors";
 import job from "./api/lib/cron.js";
 import feedBackRouter from "./api/routes/feedback.routes.js";
+import adminRouter from "./api/routes/admin.routes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
-
 // cron job
 job.start();
 
@@ -27,6 +27,9 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/ai", interviewRouter);
 app.use("/feedback",feedBackRouter);
+
+// admin panel
+app.use("/admin", adminRouter);
 
 app.get("/", (req, res) => {
     res.json({

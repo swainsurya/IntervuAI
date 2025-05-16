@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { randomIcons } from '@/lib/randomIcons';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 const InterviewCard = ({ interview, type }) => {
     const icon = randomIcons();
+    const handleDelInterview = async() => {
+        if(confirm("Are you sure? ")) {
+            window.location.reload();
+            const response = await axios.post("https://intervuai-3id4.onrender.com/ai/del-id",{interviewId: interview._id})
+            const data = response.data;
+        }
+    }
     return (
         <div className="bg-gradient-to-br from-[#1E1E2D] to-[#131321] rounded-3xl border border-[#2A2A3A] shadow-xl p-6 space-y-6 hover:shadow-2xl transition-all duration-300 group">
 
@@ -32,8 +40,8 @@ const InterviewCard = ({ interview, type }) => {
                     <Badge
                         variant="outline"
                         className={`text-xs px-3 py-1 rounded-full border ${interview.technical
-                                ? "bg-blue-900/20 text-blue-400 border-blue-700"
-                                : "bg-green-900/20 text-green-400 border-green-700"
+                            ? "bg-blue-900/20 text-blue-400 border-blue-700"
+                            : "bg-green-900/20 text-green-400 border-green-700"
                             }`}
                     >
                         {interview.type || "General"}
@@ -48,8 +56,8 @@ const InterviewCard = ({ interview, type }) => {
                         <img src="/calendar.svg" alt="Calendar" className="h-4 w-4" />
                         <span>
                             {interview?.createdDate
-                            ? dayjs(interview?.createdDate).format("MMM D, YYYY h:mm A")
-                            : "N/A"}
+                                ? dayjs(interview?.createdDate).format("MMM D, YYYY h:mm A")
+                                : "N/A"}
                         </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -72,6 +80,18 @@ const InterviewCard = ({ interview, type }) => {
                     <img src="/react.svg" alt="React" className="h-8 w-8 p-2 bg-[#243c5a] rounded-full shadow-sm" />
                     <img src="/tailwind.svg" alt="Tailwind" className="h-8 w-8 p-2 bg-[#1f334d] rounded-full shadow-sm" />
                 </div>
+
+
+                {(type === "self" || type == "admin")  && (
+                    <Button
+                        size="sm"
+                        className="text-xs bg-red-900/20 text-red-400 border border-red-700 hover:bg-red-800/30 transition-colors rounded-full px-4 py-1 shadow-sm"
+                        onClick={handleDelInterview}
+                    >
+                        🗑️ Delete
+                    </Button>
+
+                )}
 
                 <Link to={type !== "own" ? `/take-interview/${interview._id}` : `/interview/feedback/${interview._id}`}>
                     <Button

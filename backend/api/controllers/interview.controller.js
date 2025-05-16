@@ -92,3 +92,20 @@ export const getInterviewByid = async(req, res) => {
         })
     }
 }
+
+export const delInterviewById = async(req,res) => {
+    const {interviewId} = req.body;
+    try {
+        const interview = await interviewModel.findByIdAndDelete(interviewId);
+        await interview.save();
+        return res.status(200).json({
+            message: "Interview Deleted",
+            success: true
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "Internal server error",
+            success: false
+        })
+    }
+}

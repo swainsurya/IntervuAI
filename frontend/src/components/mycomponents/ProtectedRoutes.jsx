@@ -6,7 +6,6 @@ import "@/index.css"
 
 const ProtectedRoutes = () => {
   const { checkAuth } = useUser();
-  const [isAuthenticated, setIsAuth] = useState(false)
   
   return (
     checkAuth() ? (

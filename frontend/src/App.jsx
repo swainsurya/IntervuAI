@@ -12,14 +12,20 @@ import GenerateInterviewPage from './pages/GenerateInterviewPage'
 import TakeInterview from './pages/TakeInterview'
 import FeedbackPage from './pages/FeedbackPage'
 import CreatedInterviewPage from './pages/CreatedInterviewPage'
+import AdminPanel from './pages/AdminPanel'
+import ProtectedAdmin from './components/mycomponents/ProtectedAdmin'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Landing Route */}
         <Route element={<ProtectLanding/>}>
           <Route path='/landing' element={<LandingPage />} />
         </Route>
+
+        {/* Interview Routes */}
         <Route element={<ProtectedRoutes />}>
           <Route path='/' element={<Dashboard />} />
           <Route path='/generate-interview' element={<GenerateInterviewPage/>} />
@@ -27,6 +33,13 @@ const App = () => {
           <Route path='/interview/feedback/:id' element={<FeedbackPage/>} />
           <Route path='/interview/my-interviews' element={<CreatedInterviewPage/>} />
         </Route>
+
+        {/* Admin Routes */}
+        <Route element={<ProtectedAdmin/>}>
+          <Route path='/admin' element={<AdminPanel/>}/>
+        </Route>
+
+        {/* Auth and Public Routes */}
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/about' element={<AboutPage/>} />
