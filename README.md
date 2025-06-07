@@ -1,5 +1,5 @@
 
-# IntervuAI 🎙️💼
+# IntervuAI - An AI Interviewer
 
 **IntervuAI** is an AI-powered mock interview platform built using the **MERN stack**, **Vapi API**, and **Gemini API**. It simulates technical and non-technical interviews through dynamic interactions between the user and an AI interviewer.
 
