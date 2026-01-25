@@ -37,7 +37,7 @@ const App = () => {
         {/* Admin Routes */}
         <Route element={<ProtectedAdmin/>}>
           <Route path='/admin' element={<AdminPanel/>}/>
-        </Route>
+        </Route> 
 
         {/* Auth and Public Routes */}
         <Route path='/login' element={<LoginPage />} />
