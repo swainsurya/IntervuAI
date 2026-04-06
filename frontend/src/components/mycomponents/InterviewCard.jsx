@@ -56,7 +56,7 @@ const InterviewCard = ({ interview, type }) => {
                         <img src="/calendar.svg" alt="Calendar" className="h-4 w-4" />
                         <span>
                             {interview?.createdDate
-                                ? dayjs(interview?.createdDate).format("MMM D, YYYY h:mm A")
+                                ? "April 6, 2025"
                                 : "N/A"}
                         </span>
                     </div>
