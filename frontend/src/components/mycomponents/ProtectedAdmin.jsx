@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 const ProtectedAdmin = () => {
     const userid = localStorage.getItem("userid");
 
-    if(userid == "68205b3161be9593900eda0c") {
+    if(userid == "69d322fc1345f83d53e72c61") {
         return <Outlet/>
     }
     return <Navigate to="/" />
