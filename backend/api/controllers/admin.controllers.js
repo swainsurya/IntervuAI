@@ -4,7 +4,7 @@ import { userModel } from "../models/userModel.js";
 export const checkAdmin = async(req, res) => {
     const {userid} = req.body;
     try {
-        if(userid == "68205b3161be9593900eda0c") {
+        if(userid == "68205b3161be9593900eda0c" || "69d322fc1345f83d53e72c61") {
             return res.status(200).json({
                 success: true
             })
